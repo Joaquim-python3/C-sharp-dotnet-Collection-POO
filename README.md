@@ -2,7 +2,7 @@
 ### Fixação de conceitos de coleções e orientações à objetos
 ### O projeto visa simular um ambiente de vendas
 
-# Regras de negócio Empresa
+## Regras de negócio
 
 
 lojas físicas 
