@@ -3,11 +3,11 @@ namespace Business;
 using MySql.Data.MySqlClient;
 using DotNetEnv;
 
+    /// <summary>
+    /// Variáveis e Funções para conexão com o banco de dados
+    /// </summary>
 public class Database
 {
-    /// <summary>
-    /// Realiza conexão com o banco de dados
-    /// </summary>
     private string connectionString;
 
     public Database()
@@ -23,6 +23,16 @@ public class Database
 
         connectionString =
             $"server={host};port={port};database={db};user={user};password={password};";
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>String de conexão com MySQL</returns>
+    public MySqlConnection GetConnection()
+    {
+        return new MySqlConnection(connectionString);
     }
 
     /// <summary>
