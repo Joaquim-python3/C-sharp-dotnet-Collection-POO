@@ -1,0 +1,6 @@
+USO DE IA
+
+Como funciona a organização de pastas para um projeto de CRUD em C# (Explique o uso de Domain e Business) - GEMINI
+Como fazer a conexão do C# com o MySQL - GEMINI
+Como fazer comandos básicos de insert, delete, update e select em C# - ChatGPT
+
