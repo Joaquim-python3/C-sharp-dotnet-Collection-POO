@@ -1,0 +1,52 @@
+create database loja;
+use loja;
+
+CREATE TABLE lojas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    cidade VARCHAR(100),
+    endereco VARCHAR(200),
+    hora_abertura TIME,
+    hora_fechamento TIME
+);
+
+CREATE TABLE funcionarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    cargo ENUM('caixa','repositor','gerente'),
+    salario DECIMAL(10,2),
+    hora_entrada TIME,
+    hora_saida TIME,
+    regime_contratual ENUM('CLT','CNPJ'),
+    loja_id INT,
+
+    FOREIGN KEY (loja_id) REFERENCES lojas(id)
+);
+
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    login VARCHAR(100),
+    senha VARCHAR(255)
+);
+
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    preco DECIMAL(10,2),
+    tipo_venda ENUM('unidade','quilo'),
+    categoria_id INT,
+
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+);
+
+CREATE TABLE tags (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100)
+);
