@@ -15,11 +15,11 @@ public class Database
         Env.Load();
 
         //ALTERAR PARA CADA COMPUTADOR
-        string? host = Environment.GetEnvironmentVariable("DB_HOST");
-        string? port = Environment.GetEnvironmentVariable("3306");
-        string? db = Environment.GetEnvironmentVariable("DB_NAME");
-        string? user = Environment.GetEnvironmentVariable("DB_USER");
-        string? password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+        string? host = "localhost";
+        string? port = "3306";
+        string? db = "loja";
+        string? user = "root";
+        string? password = "root";
 
         connectionString =
             $"server={host};port={port};database={db};user={user};password={password};";
