@@ -7,13 +7,11 @@ namespace Domain;
 
 public class Funcionario
 {
-
-
     public int id { get; set; }
 
     public string Nome { get; set; }
 
-    public Cargo Cargo { get; set; }
+    public List<Cargo> Cargos { get; set; }
 
     public decimal Salario { get; set; }
     public DateTime HoraEntrada { get; set; }
@@ -21,11 +19,11 @@ public class Funcionario
     public DateTime HoraSaida { get; set; }
 
     public RegimeContratual RegimeContratual { get; set; }
-    public Funcionario(int id, string nome, Cargo cargo, decimal salario, DateTime horaEntrada, DateTime horaSaida, RegimeContratual regimeContratual)
+    public Funcionario(int id, string nome, List<Cargo> cargos, decimal salario, DateTime horaEntrada, DateTime horaSaida, RegimeContratual regimeContratual)
     {
         this.id = id;
         Nome = nome;
-        Cargo = cargo;
+        Cargos = cargos;
         Salario = salario;
         HoraEntrada = horaEntrada;
         HoraSaida = horaSaida;
