@@ -4,6 +4,7 @@ namespace Domain
     {
         CAIXA = 1,
         REPOSITOR = 2,
-        GERENTE = 3
+        GERENTE = 3,
+        ENTREGADOR = 4
     }
 }
