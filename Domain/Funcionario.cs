@@ -8,16 +8,11 @@ namespace Domain;
 public class Funcionario
 {
     public int id { get; set; }
-
     public string Nome { get; set; }
-
     public List<Cargo> Cargos { get; set; }
-
     public decimal Salario { get; set; }
     public DateTime HoraEntrada { get; set; }
-
     public DateTime HoraSaida { get; set; }
-
     public RegimeContratual RegimeContratual { get; set; }
     public Funcionario(int id, string nome, List<Cargo> cargos, decimal salario, DateTime horaEntrada, DateTime horaSaida, RegimeContratual regimeContratual)
     {
@@ -32,5 +27,16 @@ public class Funcionario
 
     public Funcionario()
     {
+    }
+    
+    public override string ToString()
+    {
+        return $"Id: {id} | " +
+           $"Nome: {Nome} | " +
+           $"Cargos: {string.Join(",", Cargos)} | " + // essa funcao percorre a Lista Cargos
+           $"Salário: {Salario} | " +
+           $"Entrada: {HoraEntrada} | " +
+           $"Saída: {HoraSaida} | " +
+           $"Regime: {RegimeContratual}";
     }
 }

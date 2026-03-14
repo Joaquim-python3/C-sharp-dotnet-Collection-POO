@@ -16,6 +16,11 @@ do
     Console.WriteLine("3 - Alterar produtos");
     Console.WriteLine("4 - Deletar produtos");
     Console.WriteLine("5 - Sair");
+    Console.WriteLine("\n");
+    Console.WriteLine("-=-=-=-=-=-=-=-=--=-=-");
+    Console.WriteLine("-= 6 - Menu de CRUD -=");
+    Console.WriteLine("-=-=-=-=-=-=-=-=--=-=-");
+
 
     Console.Write("Escolha uma opção: ");
     opcao = Console.ReadLine();
@@ -56,7 +61,7 @@ do
             Console.Write("Digite o novo preço do produto: ");
             At_p.Preco = decimal.Parse(Console.ReadLine());
 
-            repo.AtualizarProdutos(At_id,At_p);
+            repo.AtualizarProdutos(At_id, At_p);
             Console.WriteLine("LISTA ATUALIZADA ----------");
             repo.ListarProdutos();
             Console.WriteLine("Produto atualizado com sucesso!");
@@ -77,9 +82,30 @@ do
             Console.WriteLine("Finalizando!");
             break;
 
+        case "6":
+        // isso aqui sera usado para ser usado para manipular os objetos
+            Console.WriteLine("1 - LOJA");
+            Console.WriteLine("2 - FUNCIONARIO");
+            Console.WriteLine("3 - PRODUTO");
+            Console.WriteLine("7 - Sair");
+
+            string opcao_crud = Console.ReadLine();
+
+            switch (opcao_crud)
+            {
+                case "1":
+                    break;
+                default:
+                    Console.WriteLine("Erro de input");
+                    break;
+            }
+
+            break;
+
         default:
 
             Console.WriteLine("Opção inválida!");
             break;
     }
-}while(opcao != "5");
+} while (opcao != "5");
+
