@@ -8,6 +8,7 @@ Console.WriteLine("");
 
 Database db = new Database();
 ProdutoRepository repo = new ProdutoRepository(db);
+ClienteRepository repo_cliente = new ClienteRepository(db);
 
 string opcao;
 do
@@ -78,17 +79,43 @@ do
             Console.WriteLine("Produto deletado com sucesso!");
             break;
 
-        case "5":
+        case "5": // Criando as lojas
             Console.WriteLine("Criando lojas!");
             Loja loja_aracati = new Loja(1, "Aracati", "Aracati", "Rua centro nº123", new TimeSpan(8, 0, 0), new TimeSpan(16, 0, 0));
-            Loja loja_russas = new Loja(1, "Russas", "Russas", "Rua Central nº1010", new TimeSpan(9,0,0), new TimeSpan(18,0,0));
+            Loja loja_russas = new Loja(1, "Russas", "Russas", "Rua Central nº1010", new TimeSpan(9, 0, 0), new TimeSpan(18, 0, 0));
             Console.WriteLine(loja_aracati.ToString());
             Console.WriteLine(loja_russas.ToString());
             break;
 
-        case "6":
+        case "6": // Iniciando as compras
             Console.WriteLine("Iniciando compras!");
-            
+            Console.WriteLine("Possui login? (s/n)");
+            string possui_login = Console.ReadLine().ToUpper();
+            if (possui_login == "S")
+            {
+                Console.WriteLine("Digite login: ");
+                string login_cliente = Console.ReadLine();
+                Console.WriteLine("Digite senha: ");
+                string senha_cliente = Console.ReadLine();
+                repo_cliente.ProcurarClientePeloEmailESenha(login_cliente, senha_cliente);
+
+            }else if(possui_login == "N")
+            {
+                Cliente cliente_novo = new Cliente();
+                Console.WriteLine("Digite seu nome: ");
+                cliente_novo.Nome = Console.ReadLine();
+
+                Console.WriteLine("Digite seu email: ");
+                cliente_novo.Email = Console.ReadLine();
+
+                Console.WriteLine("Digite login: ");
+                cliente_novo.Login  = Console.ReadLine();
+
+                Console.WriteLine("Digite senha: ");
+                cliente_novo.Senha  = Console.ReadLine();
+
+                repo_cliente.CriarCliente(cliente_novo);
+            }
             break;
 
         case "7":

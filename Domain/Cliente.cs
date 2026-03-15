@@ -10,8 +10,8 @@ public class Cliente
     public int id { get; set; }
     public string Nome { get; set; }
     public string Email { get; set; }
-    public string Login { get; }
-    public string Senha { get; }
+    public string Login { get; set;}
+    public string Senha { get; set;}
 
     public Cliente() { }
 
@@ -23,4 +23,13 @@ public class Cliente
         Login = login;
         Senha = senha;
     }
+
+    public Cliente(string nome, string email, string login, string senha)
+    {
+        Nome = nome;
+        Email = email;
+        Login = login;
+        Senha = senha;
+    }
+
 }
