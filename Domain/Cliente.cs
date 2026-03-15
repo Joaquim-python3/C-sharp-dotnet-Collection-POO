@@ -10,6 +10,17 @@ public class Cliente
     public int id { get; set; }
     public string Nome { get; set; }
     public string Email { get; set; }
-    
+    public string Login { get; }
+    public string Senha { get; }
 
+    public Cliente() { }
+
+    public Cliente(int id, string nome, string email, string login, string senha)
+    {
+        this.id = id;
+        Nome = nome;
+        Email = email;
+        Login = login;
+        Senha = senha;
+    }
 }
