@@ -18,7 +18,8 @@ do
     Console.WriteLine("3 - Alterar produtos");
     Console.WriteLine("4 - Deletar produtos");
     Console.WriteLine("5 - Criar lojas");
-    Console.WriteLine("6 - Sair");
+    Console.WriteLine("6 - Iniciar compra");
+    Console.WriteLine("7 - Sair");
     Console.WriteLine("\n");
 
 
@@ -83,11 +84,15 @@ do
             Loja loja_russas = new Loja(1, "Russas", "Russas", "Rua Central nº1010", new TimeSpan(9,0,0), new TimeSpan(18,0,0));
             Console.WriteLine(loja_aracati.ToString());
             Console.WriteLine(loja_russas.ToString());
-
             break;
 
         case "6":
-            Console.WriteLine("Finalizando");
+            Console.WriteLine("Iniciando compras!");
+            
+            break;
+
+        case "7":
+            Console.WriteLine("Finalizando!");
             break;
 
         default:
@@ -95,7 +100,7 @@ do
             Console.WriteLine("Opção inválida!");
             break;
     }
-} while (opcao != "6");
+} while (opcao != "7");
 
 
 
