@@ -18,7 +18,7 @@ public class Venda
     {
     }
 
-// Venda presencial
+    // Venda presencial
     public Venda(int id, DateTime dataVenda, List<Produto> carrinho, Funcionario funcionario)
     {
         this.id = id;
@@ -27,7 +27,7 @@ public class Venda
         Funcionario = funcionario;
     }
 
-// Venda online
+    // Venda online
     public Venda(int id, DateTime dataVenda, Cliente cliente, List<Produto> carrinho, Funcionario funcionario)
     {
         this.id = id;

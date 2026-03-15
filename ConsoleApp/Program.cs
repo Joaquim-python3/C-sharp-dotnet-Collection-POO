@@ -1,5 +1,7 @@
 ﻿using Business;
 using Domain;
+using Org.BouncyCastle.Asn1.Cms;
+using System;
 
 Console.WriteLine("Iniciando cadastro de produto!");
 Console.WriteLine("");
@@ -15,11 +17,9 @@ do
     Console.WriteLine("2 - Listar produtos");
     Console.WriteLine("3 - Alterar produtos");
     Console.WriteLine("4 - Deletar produtos");
-    Console.WriteLine("5 - Sair");
+    Console.WriteLine("5 - Criar lojas");
+    Console.WriteLine("6 - Sair");
     Console.WriteLine("\n");
-    Console.WriteLine("-=-=-=-=-=-=-=-=--=-=-");
-    Console.WriteLine("-= 6 - Menu de CRUD -=");
-    Console.WriteLine("-=-=-=-=-=-=-=-=--=-=-");
 
 
     Console.Write("Escolha uma opção: ");
@@ -78,28 +78,16 @@ do
             break;
 
         case "5":
+            Console.WriteLine("Criando lojas!");
+            Loja loja_aracati = new Loja(1, "Aracati", "Aracati", "Rua centro nº123", new TimeSpan(8, 0, 0), new TimeSpan(16, 0, 0));
+            Loja loja_russas = new Loja(1, "Russas", "Russas", "Rua Central nº1010", new TimeSpan(9,0,0), new TimeSpan(18,0,0));
+            Console.WriteLine(loja_aracati.ToString());
+            Console.WriteLine(loja_russas.ToString());
 
-            Console.WriteLine("Finalizando!");
             break;
 
         case "6":
-        // isso aqui sera usado para ser usado para manipular os objetos
-            Console.WriteLine("1 - LOJA");
-            Console.WriteLine("2 - FUNCIONARIO");
-            Console.WriteLine("3 - PRODUTO");
-            Console.WriteLine("7 - Sair");
-
-            string opcao_crud = Console.ReadLine();
-
-            switch (opcao_crud)
-            {
-                case "1":
-                    break;
-                default:
-                    Console.WriteLine("Erro de input");
-                    break;
-            }
-
+            Console.WriteLine("Finalizando");
             break;
 
         default:
@@ -107,5 +95,7 @@ do
             Console.WriteLine("Opção inválida!");
             break;
     }
-} while (opcao != "5");
+} while (opcao != "6");
+
+
 

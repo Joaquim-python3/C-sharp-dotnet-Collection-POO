@@ -15,13 +15,13 @@ public class Loja
 
     public string Endereco { get; set; }
 
-    public DateTime HoraAbertura { get; set; }
+    public TimeSpan HoraAbertura { get; set; }
 
-    public DateTime HoraFechamento { get; set; }
+    public TimeSpan HoraFechamento { get; set; }
 
     public List<Funcionario> ListFuncionarios;
 
-    public Loja(int id, string nome, string cidade, string endereco, DateTime horaAbertura, DateTime horaFechamento)
+    public Loja(int id, string nome, string cidade, string endereco, TimeSpan horaAbertura, TimeSpan horaFechamento)
     {
         this.id = id;
         Nome = nome;
@@ -29,10 +29,15 @@ public class Loja
         Endereco = endereco;
         HoraAbertura = horaAbertura;
         HoraFechamento = horaFechamento;
-        ListFuncionarios = null;
     }
 
     public Loja()
     {
     }
+
+    public override string ToString()
+    {
+        return "id= "+id+" | nome= "+Nome+" | cidade= "+Cidade+" | endereco= "+Endereco+" | horaAbertura= "+HoraAbertura+" | horaFechamento= "+HoraFechamento;
+    }
+    
 }
