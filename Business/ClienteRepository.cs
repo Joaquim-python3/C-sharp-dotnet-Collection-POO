@@ -92,6 +92,7 @@ public class ClienteRepository
     }
 
     // FIND BY EMAIL
+    // ainda nao retorna nada, apenas imprime
     public void ProcurarClientePeloEmailESenha(string email, string senha)
     {
         using var conn = database.GetConnection();

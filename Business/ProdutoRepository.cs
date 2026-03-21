@@ -76,4 +76,35 @@ public class ProdutoRepository
 
         cmd.ExecuteNonQuery();
     }
+
+    // READ BY ID
+    public Produto? ProcurarProdutoPeloId(string id)
+    {
+        Produto p = new Produto();
+        using var conn = database.GetConnection();
+        conn.Open();
+
+        string sql = "SELECT * FROM produtos WHERE id=@id";
+
+        var cmd = new MySqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("@id", id);
+        var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            Console.WriteLine($"{reader["id"]} - {reader["nome"]} - {reader["preco"]}");
+            return new Produto
+            (
+            /*ID*/          Convert.ToInt32(reader["id"]),
+            /*NOME*/        reader["nome"].ToString(),
+            /*PRECO*/       Convert.ToDecimal(reader["preco"]),
+            /*CATEGORIA*/   reader["categoria_id"]?.ToString() ?? "",
+            /*TAGS*/        new List<string>() // depois você pode puxar isso de outra tabela
+            );
+        }
+
+        return null;
+
+    }
+
 }
