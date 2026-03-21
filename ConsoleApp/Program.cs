@@ -79,7 +79,7 @@ do
             Console.WriteLine("Produto deletado com sucesso!");
             break;
 
-        case "5": // Criando as lojas
+        case "5": // Criando as lojas (em memoria)
             Console.WriteLine("Criando lojas!");
             Loja loja_aracati = new Loja(1, "Aracati", "Aracati", "Rua centro nº123", new TimeSpan(8, 0, 0), new TimeSpan(16, 0, 0));
             Loja loja_russas = new Loja(1, "Russas", "Russas", "Rua Central nº1010", new TimeSpan(9, 0, 0), new TimeSpan(18, 0, 0));
@@ -87,7 +87,7 @@ do
             Console.WriteLine(loja_russas.ToString());
             break;
 
-        case "6": // Iniciando as compras
+        case "6": // Iniciando as compras (aqui vai ficar a logica da compra)
             Console.WriteLine("Iniciando compras!");
             Console.WriteLine("Possui login? (s/n)");
             string possui_login = Console.ReadLine().ToUpper();
