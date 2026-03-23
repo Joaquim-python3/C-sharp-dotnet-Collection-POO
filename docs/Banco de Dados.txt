@@ -103,3 +103,90 @@ CREATE TABLE estoque (
     FOREIGN KEY (produto_id) REFERENCES produtos(id),
     FOREIGN KEY (loja_id) REFERENCES lojas(id)
 );
+
+-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- DADOS DUMMY -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+INSERT INTO lojas (nome, cidade, endereco, hora_abertura, hora_fechamento) VALUES
+('Loja Natural Aracati', 'Aracati', 'Rua Coronel Alexanzito, 1200', '08:00:00', '18:00:00'),
+('Loja Natural Russas', 'Russas', 'Av. Dom Lino, 550', '08:00:00', '18:00:00');
+
+INSERT INTO funcionarios (nome, cargo, salario, hora_entrada, hora_saida, regime_contratual, loja_id) VALUES
+('Maria Silva', 'gerente', 3500.00, '08:00:00', '17:00:00', 'CLT', 1),
+('João Pereira', 'caixa', 1800.00, '08:00:00', '17:00:00', 'CLT', 1),
+('Ana Costa', 'caixa', 1800.00, '09:00:00', '18:00:00', 'CLT', 1),
+
+('Carlos Souza', 'gerente', 3600.00, '08:00:00', '17:00:00', 'CLT', 2),
+('Pedro Alves', 'caixa', 1800.00, '08:00:00', '17:00:00', 'CLT', 2),
+('Fernanda Lima', 'caixa', 1800.00, '09:00:00', '18:00:00', 'CLT', 2),
+('Rafael Gomes', 'repositor', 1700.00, '08:00:00', '17:00:00', 'CLT', 2);
+
+INSERT INTO clientes (nome, email, login, senha) VALUES
+('Lucas Andrade', 'lucas@email.com', 'lucas123', 'senha_hash_1'),
+('Carla Mendes', 'carla@email.com', 'carla_m', 'senha_hash_2'),
+('Bruno Martins', 'bruno@email.com', 'bruno_m', 'senha_hash_3'),
+('Juliana Rocha', 'juliana@email.com', 'ju_rocha', 'senha_hash_4');
+
+INSERT INTO categorias (nome) VALUES
+('Oleaginosas'),
+('Sementes'),
+('Mel e derivados'),
+('Frutas secas');
+
+INSERT INTO produtos (nome, preco, tipo_venda, categoria_id) VALUES
+('Castanha de Caju', 42.90, 'quilo', 1),
+('Amendoim Torrado', 18.50, 'quilo', 1),
+('Linhaça Dourada', 12.90, 'quilo', 2),
+('Mel de Caju', 25.00, 'unidade', 3),
+('Uva Passa', 22.00, 'quilo', 4),
+('Castanha do Pará', 55.00, 'quilo', 1);
+
+INSERT INTO tags (nome) VALUES
+('natural'),
+('vegano'),
+('rico_em_proteina'),
+('rico_em_fibras'),
+('energia'),
+('saudavel'),
+('sem_gluten'),
+('organico'),
+('produto_regional');
+
+INSERT INTO produto_tags (produto_id, tag_id) VALUES
+
+(1,1),(1,6),(1,3),
+(2,1),(2,3),(2,5),
+(3,1),(3,4),(3,7),
+(4,1),(4,9),(4,6),
+(5,1),(5,6),
+(6,1),(6,6),(6,5);
+
+INSERT INTO estoque (produto_id, loja_id, quantidade) VALUES
+(1,1,50),
+(1,2,30),
+(2,1,80),
+(2,2,60),
+(3,1,40),
+(3,2,35),
+(4,1,20),
+(4,2,15),
+(5,1,25),
+(6,1,18);
+
+INSERT INTO vendas (data_venda, cliente_id, funcionario_id, loja_id, tipo_venda) VALUES
+('2026-03-20 10:30:00', 1, 2, 1, 'fisica'),
+('2026-03-20 15:10:00', 2, 5, 2, 'fisica'),
+('2026-03-21 09:20:00', 3, 2, 1, 'online');
+
+INSERT INTO itens_venda (venda_id, produto_id, quantidade, preco_unitario) VALUES
+(1,1,1.5,42.90),
+(1,2,1.0,18.50),
+
+(2,3,2.0,12.90),
+(2,5,1.0,22.00),
+
+(3,4,2.0,25.00);
+
+INSERT INTO pagamentos (venda_id, forma_pagamento, valor) VALUES
+(1,'credito',82.85),
+(2,'dinheiro',47.80),
+(3,'debito',50.00);
