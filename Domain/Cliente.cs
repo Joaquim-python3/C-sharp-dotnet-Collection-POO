@@ -23,13 +23,4 @@ public class Cliente
         Login = login;
         Senha = senha;
     }
-
-    public Cliente(string nome, string email, string login, string senha)
-    {
-        Nome = nome;
-        Email = email;
-        Login = login;
-        Senha = senha;
-    }
-
 }

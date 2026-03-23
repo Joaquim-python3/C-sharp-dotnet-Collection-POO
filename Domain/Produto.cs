@@ -11,8 +11,10 @@ public class Produto
     public decimal Preco { get; set; }
 
     public string Categoria { get; set; }
-
     public List<string> Tags { get; set; }
+    public Produto()
+    {
+    }
     public Produto(int id, string nome, decimal preco, string categoria, List<string> tags)
     {
         this.id = id;
@@ -22,7 +24,8 @@ public class Produto
         Tags = tags;
     }
 
-    public Produto()
-    {
-    }
+    public override string ToString()
+{
+    return $"{id} - {Nome} - R$ {Preco:F2} - {Categoria?.ToString() ?? "categoria nao informada"}";
+}
 }
