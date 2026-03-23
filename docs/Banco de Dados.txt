@@ -1,4 +1,4 @@
-create database loja;
+CREATE DATABASE IF NOT EXISTS loja;
 use loja;
 
 CREATE TABLE lojas (
@@ -13,7 +13,7 @@ CREATE TABLE lojas (
 CREATE TABLE funcionarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
-    cargo ENUM('caixa','repositor','gerente'),
+    cargo ENUM('caixa','repositor','gerente','entregador'),
     salario DECIMAL(10,2),
     hora_entrada TIME,
     hora_saida TIME,
@@ -49,4 +49,57 @@ CREATE TABLE produtos (
 CREATE TABLE tags (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100)
+);
+
+CREATE TABLE produto_tags (
+    produto_id INT,
+    tag_id INT,
+
+    PRIMARY KEY (produto_id, tag_id),
+
+    FOREIGN KEY (produto_id) REFERENCES produtos(id),
+    FOREIGN KEY (tag_id) REFERENCES tags(id)
+);
+
+CREATE TABLE vendas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data_venda DATETIME,
+    cliente_id INT,
+    funcionario_id INT,
+    loja_id INT,
+    tipo_venda ENUM('fisica','online'),
+
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id),
+    FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id),
+    FOREIGN KEY (loja_id) REFERENCES lojas(id)
+);
+
+CREATE TABLE itens_venda (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    venda_id INT,
+    produto_id INT,
+    quantidade DECIMAL(10,2),
+    preco_unitario DECIMAL(10,2),
+
+    FOREIGN KEY (venda_id) REFERENCES vendas(id),
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
+CREATE TABLE pagamentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    venda_id INT,
+    forma_pagamento ENUM('credito','debito','dinheiro'),
+    valor DECIMAL(10,2),
+
+    FOREIGN KEY (venda_id) REFERENCES vendas(id)
+);
+
+CREATE TABLE estoque (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    produto_id INT,
+    loja_id INT,
+    quantidade DECIMAL(10,2),
+
+    FOREIGN KEY (produto_id) REFERENCES produtos(id),
+    FOREIGN KEY (loja_id) REFERENCES lojas(id)
 );
