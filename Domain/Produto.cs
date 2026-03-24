@@ -9,23 +9,25 @@ public class Produto
     public int id { get; set; }
     public string Nome { get; set; }
     public decimal Preco { get; set; }
+    public string TipoVenda { get; set; }
 
-    public string Categoria { get; set; }
+    public int Categoria_id { get; set; }
     public List<string> Tags { get; set; }
     public Produto()
     {
     }
-    public Produto(int id, string nome, decimal preco, string categoria, List<string> tags)
+    public Produto(int id, string nome, decimal preco, string tipo_venda, int categoria_id, List<string> tags)
     {
         this.id = id;
         Nome = nome;
         Preco = preco;
-        Categoria = categoria;
+        TipoVenda = tipo_venda;
+        Categoria_id = categoria_id;
         Tags = tags;
     }
 
     public override string ToString()
 {
-    return $"{id} - {Nome} - R$ {Preco:F2} - {Categoria?.ToString() ?? "categoria nao informada"}";
+    return $"{id} - {Nome} - R$ {Preco:F2} - {Categoria_id.ToString() ?? "categoria nao informada"} - {TipoVenda}";
 }
 }
