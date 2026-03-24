@@ -40,6 +40,18 @@ do
             Console.Write("Preço do produto: ");
             p.Preco = decimal.Parse(Console.ReadLine());
 
+            Console.Write("Tipo da venda (unidade/quilo): ");
+            p.TipoVenda = Console.ReadLine().ToLower();
+            if (p.TipoVenda != "unidade" && p.TipoVenda != "quilo")
+            {
+                Console.WriteLine("Tipo de venda inválido!");
+                return;
+            }
+
+            Console.Write("Categoria do produto (id): ");
+            p.Categoria_id = int.Parse(Console.ReadLine());
+
+
             repo_produto.CriarProdutos(p);
             break;
 
@@ -58,11 +70,22 @@ do
 
             Produto At_p = new Produto();
 
-            Console.Write("Digite o novo nome do produto: ");
+            Console.Write("Novo nome do produto: ");
             At_p.Nome = Console.ReadLine();
 
-            Console.Write("Digite o novo preço do produto: ");
+            Console.Write("Novo preço do produto: ");
             At_p.Preco = decimal.Parse(Console.ReadLine());
+
+            Console.Write("Novo tipo da venda (unidade/quilo): ");
+            At_p.TipoVenda = Console.ReadLine().ToLower();
+            if (At_p.TipoVenda != "unidade" && At_p.TipoVenda != "quilo")
+            {
+                Console.WriteLine("Tipo de venda inválido!");
+                return;
+            }
+
+            Console.Write("Nova categoria do produto (id): ");
+            At_p.Categoria_id = int.Parse(Console.ReadLine());
 
             repo_produto.AtualizarProdutos(At_id, At_p);
             Console.WriteLine("LISTA ATUALIZADA ----------");
