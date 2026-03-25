@@ -131,7 +131,7 @@ do
                 string login_cliente = Console.ReadLine();
                 Console.WriteLine("Digite senha: ");
                 string senha_cliente = Console.ReadLine();
-                repo_cliente.ProcurarClientePeloEmailESenha(login_cliente, senha_cliente);
+                repo_cliente.ProcurarClientePeloEmail(login_cliente);
 
             }
             else if (compra_online == "S" && possui_login == "N")

@@ -2,6 +2,7 @@ namespace Business;
 
 using MySql.Data.MySqlClient;
 using Domain;
+using BCrypt.Net;
 
 public class ClienteRepository
 {
@@ -18,11 +19,11 @@ public class ClienteRepository
         using var conn = database.GetConnection();
         conn.Open();
 
-        // verificamos se existe algum cliente com o mesmo login
+        // verificar login existente
         string sql_verificar_login_existente = "SELECT COUNT(*) FROM clientes WHERE login = @login";
         var verificarCmd = new MySqlCommand(sql_verificar_login_existente, conn);
         verificarCmd.Parameters.AddWithValue("@login", cliente.Login);
-        
+
         int existe_login_cadastrado = Convert.ToInt32(verificarCmd.ExecuteScalar());
 
         if (existe_login_cadastrado > 0)
@@ -31,15 +32,20 @@ public class ClienteRepository
             return;
         }
 
+        // HASH DA SENHA
+        string senhaHash = BCrypt.HashPassword(cliente.Senha);
+
         string sql = "INSERT INTO clientes(nome, email, login, senha) VALUES (@nome, @email, @login, @senha)";
 
         var cmd = new MySqlCommand(sql, conn);
+
         cmd.Parameters.AddWithValue("@nome", cliente.Nome);
         cmd.Parameters.AddWithValue("@email", cliente.Email);
         cmd.Parameters.AddWithValue("@login", cliente.Login);
-        cmd.Parameters.AddWithValue("@senha", cliente.Senha);
+        cmd.Parameters.AddWithValue("@senha", senhaHash);
 
         cmd.ExecuteNonQuery();
+
         Console.WriteLine("Cliente criado com sucesso!");
     }
 
@@ -72,7 +78,7 @@ public class ClienteRepository
 
         cmd.Parameters.AddWithValue("@id", id);
         cmd.Parameters.AddWithValue("@nome", cliente.Nome);
-        cmd.Parameters.AddWithValue("@preco", cliente.Email);
+        cmd.Parameters.AddWithValue("@email", cliente.Email);
 
         cmd.ExecuteNonQuery();
     }
@@ -93,21 +99,45 @@ public class ClienteRepository
 
     // FIND BY EMAIL
     // ainda nao retorna nada, apenas imprime
-    public void ProcurarClientePeloEmailESenha(string email, string senha)
+    public Cliente? ProcurarClientePeloEmail(string email)
     {
         using var conn = database.GetConnection();
         conn.Open();
 
-        string sql = "SELECT * FROM clientes WHERE email=@email AND senha=@senha";
+        string sql = "SELECT * FROM clientes WHERE email=@email";
 
         var cmd = new MySqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("@email", email);
-        cmd.Parameters.AddWithValue("@senha", senha);
         var reader = cmd.ExecuteReader();
 
-        while (reader.Read())
+        if (reader.Read())
         {
-            Console.WriteLine($"{reader["id"]} - {reader["nome"]} - {reader["email"]} - {reader["senha"]}");
+            Cliente cliente = new Cliente
+            {
+                id = Convert.ToInt32(reader["id"]),
+                Nome = reader["nome"].ToString(),
+                Email = reader["email"].ToString(),
+                Login = reader["login"]?.ToString(),
+                Senha = reader["senha"].ToString()
+            };
+            return cliente;
         }
+        return null;
     }
+
+        //DEVE SER MOVIDA PARA ClienteService SE HOUVER TEMPO
+        public bool Login(string emailDigitado, string senhaDigitada)
+    {
+        var cliente = ProcurarClientePeloEmail(emailDigitado);
+
+        if(cliente == null)
+        {
+            return false;
+        }
+
+        bool senhaValida = BCrypt.Verify(senhaDigitada,cliente.Senha);
+
+        return senhaValida;
+    }
+    
 }
