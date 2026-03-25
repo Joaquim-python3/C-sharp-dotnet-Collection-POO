@@ -124,5 +124,20 @@ public class ClienteRepository
         }
         return null;
     }
+
+        //DEVE SER MOVIDA PARA ClienteService SE HOUVER TEMPO
+        public bool Login(string emailDigitado, string senhaDigitada)
+    {
+        var cliente = ProcurarClientePeloEmail(emailDigitado);
+
+        if(cliente == null)
+        {
+            return false;
+        }
+
+        bool senhaValida = BCrypt.Verify(senhaDigitada,cliente.Senha);
+
+        return senhaValida;
+    }
     
 }
