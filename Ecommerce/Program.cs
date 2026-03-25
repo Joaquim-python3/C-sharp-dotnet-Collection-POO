@@ -1,10 +1,14 @@
 ﻿using Business;
 using Domain;
 using System;
+using Ecommerce;
 
 Cliente c = new Cliente();
 Database db = new Database();
 ClienteRepository repo_cliente = new ClienteRepository(db);
+CarrinhoRepository carrinhoRepo = new CarrinhoRepository(db);
+ProdutoRepository produtoRepo = new ProdutoRepository(db);
+FuncoesMenu menu = new FuncoesMenu();
 
 Console.WriteLine("=============== BEM VINDO AO ECOMMERCE ===============");
 
@@ -20,11 +24,13 @@ switch (opcao)
         Console.Write("Digite sua senha: ");
         c.Senha = Console.ReadLine();
 
-        var verificar = repo_cliente.Login(c.Email,c.Senha);
+        var cliente = repo_cliente.ProcurarClientePeloEmail(c.Email);
 
-        if(verificar == true)
+        if (cliente != null && BCrypt.Net.BCrypt.Verify(c.Senha, cliente.Senha))
         {
             Console.WriteLine("Você está logado!");
+
+            menu.MenuCliente(cliente, carrinhoRepo, produtoRepo);
         }
         else
         {
