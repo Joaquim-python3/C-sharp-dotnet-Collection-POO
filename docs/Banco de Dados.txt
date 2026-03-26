@@ -104,6 +104,25 @@ CREATE TABLE estoque (
     FOREIGN KEY (loja_id) REFERENCES lojas(id)
 );
 
+CREATE TABLE carrinhos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('ativo','finalizado','cancelado'),
+
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+);
+
+CREATE TABLE itens_carrinho (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    carrinho_id INT,
+    produto_id INT,
+    quantidade DECIMAL(10,2),
+
+    FOREIGN KEY (carrinho_id) REFERENCES carrinhos(id),
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
 -- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- DADOS DUMMY -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 INSERT INTO lojas (nome, cidade, endereco, hora_abertura, hora_fechamento) VALUES
