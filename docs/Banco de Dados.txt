@@ -64,7 +64,7 @@ CREATE TABLE produto_tags (
 CREATE TABLE vendas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     data_venda DATETIME,
-    cliente_id INT,
+    cliente_id INT NULL,
     funcionario_id INT,
     loja_id INT,
     tipo_venda ENUM('fisica','online'),
@@ -123,7 +123,18 @@ CREATE TABLE itens_carrinho (
     FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
 
--- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- DADOS DUMMY -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+select * from clientes;
+select * from itens_carrinho;
+select * from carrinhos;
+select * from vendas;
+
+ALTER TABLE clientes ADD UNIQUE(login);
+ALTER TABLE clientes ADD UNIQUE(email);
+
+ALTER TABLE estoque 
+ADD CONSTRAINT unique_produto_loja UNIQUE (produto_id, loja_id);
+
+ALTER TABLE vendas MODIFY funcionario_id INT NULL;
 
 INSERT INTO lojas (nome, cidade, endereco, hora_abertura, hora_fechamento) VALUES
 ('Loja Natural Aracati', 'Aracati', 'Rua Coronel Alexanzito, 1200', '08:00:00', '18:00:00'),
