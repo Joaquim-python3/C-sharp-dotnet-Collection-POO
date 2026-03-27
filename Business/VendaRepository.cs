@@ -14,7 +14,7 @@ public class VendaRepository{
 
 
     public void FinalizarVenda(
-        int clienteId,
+        int? clienteId,
         int? funcionarioId,
         int lojaId,
         string tipoVenda,
@@ -43,7 +43,7 @@ public class VendaRepository{
 
             var cmdVenda = new MySqlCommand(sqlVenda, conn, transaction);
 
-            cmdVenda.Parameters.AddWithValue("@cliente_id", clienteId);
+            cmdVenda.Parameters.AddWithValue("@cliente_id", clienteId.HasValue ? clienteId : DBNull.Value);
             cmdVenda.Parameters.AddWithValue("@funcionario_id", funcionarioId.HasValue ? funcionarioId : DBNull.Value);
             cmdVenda.Parameters.AddWithValue("@loja_id", lojaId);
             cmdVenda.Parameters.AddWithValue("@tipo_venda", tipoVenda);
