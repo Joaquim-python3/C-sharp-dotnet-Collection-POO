@@ -184,4 +184,61 @@ public class VendaRepository{
         cmdLimpar.ExecuteNonQuery();
     }
 
+    // Função para monitoramento de vendas
+    public void RelatorioVendas(
+        DateTime dataInicio,
+        DateTime dataFim,
+        int? lojaId,
+        string? tipoVenda,
+        int? funcionarioId
+    )
+    {
+        using var conn = database.GetConnection();
+        conn.Open();
+
+        string sql = @"
+            SELECT 
+                v.id,
+                v.data_venda,
+                v.tipo_venda,
+                l.nome AS loja,
+                f.nome AS funcionario,
+                SUM(iv.quantidade * iv.preco_unitario) AS total
+            FROM vendas v
+            LEFT JOIN lojas l ON v.loja_id = l.id
+            LEFT JOIN funcionarios f ON v.funcionario_id = f.id
+            JOIN itens_venda iv ON iv.venda_id = v.id
+            WHERE v.data_venda BETWEEN @dataInicio AND @dataFim
+            AND (@lojaId IS NULL OR v.loja_id = @lojaId)
+            AND (@tipoVenda IS NULL OR v.tipo_venda = @tipoVenda)
+            AND (@funcionarioId IS NULL OR v.funcionario_id = @funcionarioId)
+            GROUP BY v.id
+            ORDER BY v.data_venda;
+        ";
+
+        var cmd = new MySqlCommand(sql, conn);
+
+        cmd.Parameters.AddWithValue("@dataInicio", dataInicio);
+        cmd.Parameters.AddWithValue("@dataFim", dataFim);
+        cmd.Parameters.AddWithValue("@lojaId", lojaId.HasValue ? lojaId : DBNull.Value);
+        cmd.Parameters.AddWithValue("@tipoVenda", tipoVenda ?? (object)DBNull.Value);
+        cmd.Parameters.AddWithValue("@funcionarioId", funcionarioId.HasValue ? funcionarioId : DBNull.Value);
+
+        var reader = cmd.ExecuteReader();
+
+        Console.WriteLine("\n===== RELATÓRIO DE VENDAS =====");
+
+        while (reader.Read())
+        {
+            Console.WriteLine(
+                $"Venda: {reader["id"]} | " +
+                $"Data: {reader["data_venda"]} | " +
+                $"Loja: {reader["loja"]} | " +
+                $"Tipo: {reader["tipo_venda"]} | " +
+                $"Funcionário: {reader["funcionario"]} | " +
+                $"Total: R$ {reader["total"]}"
+            );
+        }
+    }
+
 }
