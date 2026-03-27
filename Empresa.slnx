@@ -3,4 +3,5 @@
   <Project Path="ConsoleApp/ConsoleApp.csproj" />
   <Project Path="Domain/Domain.csproj" />
   <Project Path="Ecommerce/Ecommerce.csproj" />
+  <Project Path="LojaFisica/LojaFisica.csproj" />
 </Solution>
