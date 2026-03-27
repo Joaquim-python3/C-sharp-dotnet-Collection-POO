@@ -12,6 +12,7 @@ Database db = new Database();
 ProdutoRepository repo_produto = new ProdutoRepository(db);
 ClienteRepository repo_cliente = new ClienteRepository(db);
 EstoqueRepository repo_estoque = new EstoqueRepository(db);
+FuncionarioRepository repo_funcionario = new FuncionarioRepository(db);
 VendaRepository repo_venda = new VendaRepository(db);
 MenuRelatorio menuRelatorio = new MenuRelatorio();
 
@@ -28,6 +29,7 @@ do
     Console.WriteLine("7 - Retirar estoque");
     Console.WriteLine("8 - Mostrar estoque");
     Console.WriteLine("9 - Relatorio vendas");
+    Console.WriteLine("10 - Criar Funcionario");
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
 
@@ -59,17 +61,17 @@ do
             p.Categoria_id = int.Parse(Console.ReadLine());
 
 
-                Console.Write("Quantidade inicial: ");
-                decimal quantidade = decimal.Parse(Console.ReadLine());
+            Console.Write("Quantidade inicial: ");
+            decimal quantidade = decimal.Parse(Console.ReadLine());
 
-                Console.Write("ID da loja: ");
-                int lojaId = int.Parse(Console.ReadLine());
+            Console.Write("ID da loja: ");
+            int lojaId = int.Parse(Console.ReadLine());
 
 
-                int produtoId = repo_produto.CriarProdutos(p);
+            int produtoId = repo_produto.CriarProdutos(p);
 
-                repo_estoque.AdicionarEstoque(produtoId, lojaId, quantidade);
-                Console.WriteLine("Produto criado com estoque!");
+            repo_estoque.AdicionarEstoque(produtoId, lojaId, quantidade);
+            Console.WriteLine("Produto criado com estoque!");
 
             break;
 
@@ -129,7 +131,7 @@ do
             Console.WriteLine(loja_russas.ToString());
             break;
 
-        case "6": 
+        case "6":
 
             Console.WriteLine("----- REPOSIÇÃO DE ESTOQUE -----");
 
@@ -174,12 +176,83 @@ do
             repo_estoque.ListarEstoqueGeral();
 
             break;
-
+        
         case "9":
 
             menuRelatorio.MenuRelatorioFunction(repo_venda);
 
-            break;    
+            break; 
+
+        case "10":
+            Funcionario f = new Funcionario();
+            f.Cargos = new List<string>(); // 🔥 obrigatório
+
+            Console.Write("Nome do funcionário: ");
+            f.Nome = Console.ReadLine();
+
+            string cargo;
+
+            // logica para adiocionar o cargo
+            do
+            {
+                Console.WriteLine("\nDigite o cargo (ou 0 para sair):");
+                Console.WriteLine("1 - Caixa\n2 - Repositor\n3 - Gerente\n4 - Entregador\n0 - Sair");
+                cargo = Console.ReadLine();
+
+                if (cargo != "0")
+                {
+                    string nomeCargo = cargo switch
+                    {
+                        "1" => "caixa",
+                        "2" => "repositor",
+                        "3" => "gerente",
+                        "4" => "entregador",
+                        _ => null
+                    };
+
+                    if (nomeCargo != null)
+                    {
+                        f.Cargos.Add(nomeCargo);
+                        Console.WriteLine($"Cargo '{nomeCargo}' adicionado.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Opção inválida!");
+                    }
+                }
+
+            } while (cargo != "0");
+
+            Console.WriteLine("Digite o salario: (use ,) ");
+            decimal salario = decimal.Parse(Console.ReadLine());
+
+            Console.Write("Digite a hora de entrada (HH:mm): ");
+            string hora_entrada = Console.ReadLine();
+            f.HoraEntrada = DateTime.Parse(hora_entrada);
+
+            Console.Write("Digite a hora de entrada (HH:mm): ");
+            string hora_saida = Console.ReadLine();
+            f.HoraSaida = DateTime.Parse(hora_saida);
+
+            Console.WriteLine("Digite o seu regime contratuaL: (1 - CLT\n2 - CNPJ)\n");
+            string regime_contratual = Console.ReadLine();
+            switch (regime_contratual)
+            {
+                case "1":
+                    f.RegimeContratual = "CLT";
+                    break;
+
+                case "2":
+                    f.RegimeContratual = "CNPJ";
+                    break;
+            }
+
+            Console.WriteLine("Digite a loja\n1 - Aracati\n2 - Russas");
+            int loja_escolhida = int.Parse(Console.ReadLine());
+            f.LojaId = loja_escolhida;
+            repo_funcionario.CriarFuncionario(f);
+
+            break;
 
         case "0":
             Console.WriteLine("Finalizando!");
