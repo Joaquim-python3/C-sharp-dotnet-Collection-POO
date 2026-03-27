@@ -185,7 +185,7 @@ do
 
         case "10":
             Funcionario f = new Funcionario();
-            f.Cargos = new List<string>(); // 🔥 obrigatório
+            f.Cargos = new List<string>(); 
 
             Console.Write("Nome do funcionário: ");
             f.Nome = Console.ReadLine();
