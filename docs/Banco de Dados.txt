@@ -13,7 +13,6 @@ CREATE TABLE lojas (
 CREATE TABLE funcionarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
-    cargo ENUM('caixa','repositor','gerente','entregador'),
     salario DECIMAL(10,2),
     hora_entrada TIME,
     hora_saida TIME,
@@ -22,6 +21,16 @@ CREATE TABLE funcionarios (
 
     FOREIGN KEY (loja_id) REFERENCES lojas(id)
 );
+
+CREATE TABLE cargos(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50),
+    funcionario_id INT,
+    
+	FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id)
+);
+    
+    
 
 CREATE TABLE clientes (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -123,9 +132,12 @@ CREATE TABLE itens_carrinho (
     FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
 
+use loja;
+
 select * from clientes;
 select * from itens_carrinho;
 select * from carrinhos;
+select * from vendas;
 select * from vendas;
 
 ALTER TABLE clientes ADD UNIQUE(login);
