@@ -1,4 +1,5 @@
 ﻿using Business;
+using ConsoleApp;
 using Domain;
 using MySqlX.XDevAPI;
 using Org.BouncyCastle.Asn1.Cms;
@@ -12,6 +13,8 @@ ProdutoRepository repo_produto = new ProdutoRepository(db);
 ClienteRepository repo_cliente = new ClienteRepository(db);
 EstoqueRepository repo_estoque = new EstoqueRepository(db);
 FuncionarioRepository repo_funcionario = new FuncionarioRepository(db);
+VendaRepository repo_venda = new VendaRepository(db);
+MenuRelatorio menuRelatorio = new MenuRelatorio();
 
 string opcao;
 do
@@ -25,6 +28,7 @@ do
     Console.WriteLine("6 - Repor estoque");
     Console.WriteLine("7 - Retirar estoque");
     Console.WriteLine("8 - Mostrar estoque");
+    Console.WriteLine("9 - Relatorio vendas");
     Console.WriteLine("10 - Criar Funcionario");
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
@@ -97,7 +101,7 @@ do
             if (At_p.TipoVenda != "unidade" && At_p.TipoVenda != "quilo")
             {
                 Console.WriteLine("Tipo de venda inválido!");
-                return;
+                break;
             }
 
             Console.Write("Nova categoria do produto (id): ");
@@ -172,6 +176,12 @@ do
             repo_estoque.ListarEstoqueGeral();
 
             break;
+        
+        case "9":
+
+            menuRelatorio.MenuRelatorioFunction(repo_venda);
+
+            break; 
 
         case "10":
             Funcionario f = new Funcionario();
