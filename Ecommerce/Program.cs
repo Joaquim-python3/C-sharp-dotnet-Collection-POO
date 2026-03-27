@@ -8,6 +8,7 @@ Database db = new Database();
 ClienteRepository repo_cliente = new ClienteRepository(db);
 CarrinhoRepository carrinhoRepo = new CarrinhoRepository(db);
 ProdutoRepository produtoRepo = new ProdutoRepository(db);
+VendaRepository vendaRepo = new VendaRepository(db);
 FuncoesMenu menu = new FuncoesMenu();
 
 Console.WriteLine("=============== BEM VINDO AO ECOMMERCE ===============");
@@ -30,7 +31,7 @@ switch (opcao)
         {
             Console.WriteLine("Você está logado!");
 
-            menu.MenuCliente(cliente, carrinhoRepo, produtoRepo);
+            menu.MenuCliente(cliente, carrinhoRepo, produtoRepo, vendaRepo);
         }
         else
         {
