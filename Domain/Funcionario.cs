@@ -9,12 +9,13 @@ public class Funcionario
 {
     public int id { get; set; }
     public string Nome { get; set; }
-    public List<Cargo> Cargos { get; set; }
+    public List<string> Cargos { get; set; }
     public decimal Salario { get; set; }
     public DateTime HoraEntrada { get; set; }
     public DateTime HoraSaida { get; set; }
-    public RegimeContratual RegimeContratual { get; set; }
-    public Funcionario(int id, string nome, List<Cargo> cargos, decimal salario, DateTime horaEntrada, DateTime horaSaida, RegimeContratual regimeContratual)
+    public string RegimeContratual { get; set; }
+    public int LojaId {get; set;}
+    public Funcionario(int id, string nome, List<string> cargos, decimal salario, DateTime horaEntrada, DateTime horaSaida, string regimeContratual)
     {
         this.id = id;
         Nome = nome;
@@ -33,10 +34,11 @@ public class Funcionario
     {
         return $"Id: {id} | " +
            $"Nome: {Nome} | " +
-           $"Cargos: {string.Join(",", Cargos)} | " + // essa funcao percorre a Lista Cargos
+           $"Cargos: {Cargos} | " +
            $"Salário: {Salario} | " +
            $"Entrada: {HoraEntrada} | " +
            $"Saída: {HoraSaida} | " +
-           $"Regime: {RegimeContratual}";
+           $"Regime: {RegimeContratual}"+
+           $"LojaId: {LojaId} | ";
     }
 }
