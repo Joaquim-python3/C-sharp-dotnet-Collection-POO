@@ -138,16 +138,16 @@ public class CarrinhoRepository
         return itens;
     }
 
-    public void RemoverItem(int carrinhoId, int produtoId)
+    public void RemoverItem(int carrinhoId, int Id)
     {
         using var conn = database.GetConnection();
         conn.Open();
 
-        string sql = "DELETE FROM itens_carrinho WHERE carrinho_id=@carrinho_id AND produto_id=@produto_id";
+        string sql = "DELETE FROM itens_carrinho WHERE carrinho_id=@carrinho_id AND id=@id";
 
         var cmd = new MySqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("@carrinho_id", carrinhoId);
-        cmd.Parameters.AddWithValue("@produto_id", produtoId);
+        cmd.Parameters.AddWithValue("@id", Id);
 
         cmd.ExecuteNonQuery();
     }
