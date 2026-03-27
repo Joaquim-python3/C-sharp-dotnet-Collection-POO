@@ -5,7 +5,7 @@ using Domain;
 
 public class FuncoesMenu
 {
-    public void MenuCliente(Cliente cliente, CarrinhoRepository carrinhoRepo, ProdutoRepository produtoRepo)
+    public void MenuCliente(Cliente cliente, CarrinhoRepository carrinhoRepo, ProdutoRepository produtoRepo, VendaRepository vendaRepo)
     {
         var carrinho = carrinhoRepo.ObterOuCriarCarrinho(cliente.id);
 
@@ -17,6 +17,7 @@ public class FuncoesMenu
             Console.WriteLine("1 - Adicionar produto ao carrinho");
             Console.WriteLine("2 - Ver carrinho");
             Console.WriteLine("3 - Remover item");
+            Console.WriteLine("4 - Finalizar compra");
             Console.WriteLine("0 - Sair");
 
             Console.Write("Escolha: ");
@@ -35,6 +36,10 @@ public class FuncoesMenu
                 case 3:
                     RemoverItemMenu(carrinhoRepo, carrinho.id);
                     break;
+
+                case 4:
+                    FinalizarCompraMenu(cliente, carrinho.id, vendaRepo);
+                    break;    
 
                 case 0:
                     Console.WriteLine("Saindo...");
@@ -85,6 +90,40 @@ public class FuncoesMenu
         repo.RemoverItem(carrinhoId, produtoId);
 
         Console.WriteLine("Item removido!");
+    }
+
+    void FinalizarCompraMenu(Cliente cliente, int carrinhoId, VendaRepository vendaRepo)
+    {
+        Console.WriteLine("\n--- FINALIZAR COMPRA ---");
+
+        Console.WriteLine("Escolha a loja de envio:");
+        Console.WriteLine("1 - Aracati");
+        Console.WriteLine("2 - Russas");
+
+        int lojaId = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Forma de pagamento:");
+        Console.WriteLine("1 - Crédito");
+        Console.WriteLine("2 - Débito");
+        Console.WriteLine("3 - Dinheiro");
+
+        int opcaoPagamento = int.Parse(Console.ReadLine());
+
+        string formaPagamento = opcaoPagamento switch
+        {
+            1 => "credito",
+            2 => "debito",
+            3 => "dinheiro",
+            _ => throw new Exception("Forma de pagamento inválida")
+        };
+
+        vendaRepo.FinalizarVendaPorCarrinho(
+            carrinhoId,
+            lojaId,
+            formaPagamento
+        );
+
+        Console.WriteLine("Compra finalizada com sucesso!");
     }
 
 
