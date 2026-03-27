@@ -1,4 +1,5 @@
 ﻿// Aqui deve conter as classes relacionadas a regras de negócios (Métodos CRUD e etc)
+// Produto não possui quantidade, serve SOMENTE para catálogo. Estoque terá quantidade
 namespace Business;
 
 using MySql.Data.MySqlClient;
@@ -14,21 +15,24 @@ public class ProdutoRepository
     }
 
     // CREATE
-    public void CriarProdutos(Produto produto)
+    public int CriarProdutos(Produto produto)
     {
         using var conn = database.GetConnection();
         conn.Open();
 
+        // Inserir Produto (Catálogo)
         string sql = "INSERT INTO produtos (nome, preco, tipo_venda, categoria_id) VALUES (@nome, @preco, @tipo_venda, @categoria_id)";
 
-        var cmd = new MySqlCommand(sql, conn);
+        var cmd = new MySqlCommand(sql, conn); // Comandos relacionados a produto
         cmd.Parameters.AddWithValue("@nome", produto.Nome);
         cmd.Parameters.AddWithValue("@preco", produto.Preco);
         cmd.Parameters.AddWithValue("@tipo_venda", produto.TipoVenda);
         cmd.Parameters.AddWithValue("@categoria_id", produto.Categoria_id);
 
         cmd.ExecuteNonQuery();
-        Console.WriteLine("Produto criado com sucesso!");
+
+        return (int)cmd.LastInsertedId;
+
     }
 
     // READ

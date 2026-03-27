@@ -71,12 +71,13 @@ public class FuncoesMenu
 
         foreach (var item in itens)
         {
-            Console.WriteLine($"{item.NomeProduto} | Qtd: {item.Quantidade} | Preço da Unidade: {item.Preco}R$ | Total: {item.Preco * item.Quantidade}");
+            Console.WriteLine($"{item.id} | {item.NomeProduto} | Qtd: {item.Quantidade} | Preço da Unidade: {item.Preco}R$ | Total: {item.Preco * item.Quantidade}");
         }
     }
 
     void RemoverItemMenu(CarrinhoRepository repo, int carrinhoId)
     {
+        MostrarCarrinhoMenu(repo, carrinhoId);
         
         Console.Write("ID do produto para remover: ");
         int produtoId = int.Parse(Console.ReadLine());

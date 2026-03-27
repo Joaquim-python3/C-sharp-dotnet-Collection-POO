@@ -10,6 +10,7 @@ Console.WriteLine("");
 Database db = new Database();
 ProdutoRepository repo_produto = new ProdutoRepository(db);
 ClienteRepository repo_cliente = new ClienteRepository(db);
+EstoqueRepository repo_estoque = new EstoqueRepository(db);
 
 string opcao;
 do
@@ -20,8 +21,10 @@ do
     Console.WriteLine("3 - Alterar produtos");
     Console.WriteLine("4 - Deletar produtos");
     Console.WriteLine("5 - Criar lojas");
-    Console.WriteLine("6 - Iniciar compra");
-    Console.WriteLine("7 - Sair");
+    Console.WriteLine("6 - Repor estoque");
+    Console.WriteLine("7 - Retirar estoque");
+    Console.WriteLine("8 - Mostrar estoque");
+    Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
 
 
@@ -45,14 +48,25 @@ do
             if (p.TipoVenda != "unidade" && p.TipoVenda != "quilo")
             {
                 Console.WriteLine("Tipo de venda inválido!");
-                return;
+                break;
             }
 
             Console.Write("Categoria do produto (id): ");
             p.Categoria_id = int.Parse(Console.ReadLine());
 
 
-            repo_produto.CriarProdutos(p);
+                Console.Write("Quantidade inicial: ");
+                decimal quantidade = decimal.Parse(Console.ReadLine());
+
+                Console.Write("ID da loja: ");
+                int lojaId = int.Parse(Console.ReadLine());
+
+
+                int produtoId = repo_produto.CriarProdutos(p);
+
+                repo_estoque.AdicionarEstoque(produtoId, lojaId, quantidade);
+                Console.WriteLine("Produto criado com estoque!");
+
             break;
 
         case "2":
@@ -111,69 +125,53 @@ do
             Console.WriteLine(loja_russas.ToString());
             break;
 
-        case "6": // Iniciando as compras (aqui vai ficar a logica da compra)
-            string possui_login = null; ;
-            Console.WriteLine("-=-=- Iniciando compras! -=-=-");
+        case "6": 
 
-            Console.WriteLine("Compra online? (s/n)");
-            string compra_online = Console.ReadLine().ToUpper();
+            Console.WriteLine("----- REPOSIÇÃO DE ESTOQUE -----");
 
-            if (compra_online == "S")
-            {
-                Console.WriteLine("Possui login? (s/n)");
-                possui_login = Console.ReadLine().ToUpper();
-            }
+            repo_produto.ListarProdutos();
 
-            // realizar compra online
-            else if (compra_online == "S" && possui_login == "S")
-            {
-                Console.WriteLine("Digite login: ");
-                string login_cliente = Console.ReadLine();
-                Console.WriteLine("Digite senha: ");
-                string senha_cliente = Console.ReadLine();
-                repo_cliente.ProcurarClientePeloEmail(login_cliente);
+            Console.Write("\nID do produto: ");
+            int produtoId_repo = int.Parse(Console.ReadLine());
 
-            }
-            else if (compra_online == "S" && possui_login == "N")
-            {
-                Cliente cliente_novo = new Cliente();
-                Console.WriteLine("Digite seu nome: ");
-                cliente_novo.Nome = Console.ReadLine();
+            Console.Write("ID da loja: ");
+            int lojaId_repo = int.Parse(Console.ReadLine());
 
-                Console.WriteLine("Digite seu email: ");
-                cliente_novo.Email = Console.ReadLine();
+            Console.Write("Quantidade a adicionar: ");
+            decimal quantidade_repo = decimal.Parse(Console.ReadLine());
 
-                Console.WriteLine("Digite login: ");
-                cliente_novo.Login = Console.ReadLine();
-
-                Console.WriteLine("Digite senha: ");
-                cliente_novo.Senha = Console.ReadLine();
-
-                repo_cliente.CriarCliente(cliente_novo);
-            }
-
-            else
-            {
-                Console.WriteLine("-=-=- Iniciando compra presencial! -=-=-");
-                CarrinhoDeCompras carrinho = new CarrinhoDeCompras(1, DateTime.Now, new Cliente());
-                Console.WriteLine("Produtos disponíveis: ");
-                repo_produto.ListarProdutos();
-                Console.WriteLine("Digite o id: ");
-                string id_produto_escolhido = Console.ReadLine();
-
-                Produto produto_para_adicionar = repo_produto.ProcurarProdutoPeloId(id_produto_escolhido);
-                carrinho.AdicionarAoCarrinho(produto_para_adicionar);
-
-                foreach (var produto in carrinho.Carrinho)
-                {
-                    Console.WriteLine(produto.ToString());
-                }
-            }
-
+            repo_estoque.ReporEstoque(produtoId_repo, lojaId_repo, quantidade_repo);
 
             break;
 
         case "7":
+
+            Console.WriteLine("----- BAIXA DE ESTOQUE -----");
+
+            repo_produto.ListarProdutos();
+
+            Console.Write("\nID do produto: ");
+            int produtoIdBaixa = int.Parse(Console.ReadLine());
+
+            Console.Write("ID da loja: ");
+            int lojaIdBaixa = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(repo_estoque.ObterEstoque(produtoIdBaixa, lojaIdBaixa));
+
+            Console.Write("Quantidade a remover: ");
+            decimal qtdBaixa = decimal.Parse(Console.ReadLine());
+
+            repo_estoque.BaixarEstoque(produtoIdBaixa, lojaIdBaixa, qtdBaixa);
+
+            break;
+
+        case "8":
+
+            repo_estoque.ListarEstoqueGeral();
+
+            break;
+
+        case "0":
             Console.WriteLine("Finalizando!");
             break;
 
@@ -182,7 +180,7 @@ do
             Console.WriteLine("Opção inválida!");
             break;
     }
-} while (opcao != "7");
+} while (opcao != "0");
 
 
 
