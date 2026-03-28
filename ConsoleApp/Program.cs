@@ -266,7 +266,6 @@ do
             int id_funcionario_deletar = int.Parse(Console.ReadLine());
             repo_funcionario.DeletarFuncionario(id_funcionario_deletar);
             break;
-
         case "0":
             Console.WriteLine("Finalizando!");
             break;
