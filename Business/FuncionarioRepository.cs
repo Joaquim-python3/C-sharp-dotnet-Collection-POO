@@ -2,6 +2,7 @@ namespace Business;
 
 using MySql.Data.MySqlClient;
 using Domain;
+using Domain.Services;
 
 public class FuncionarioRepository
 {
@@ -85,5 +86,20 @@ public class FuncionarioRepository
         var cmd = new MySqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("@id", id);
         cmd.ExecuteNonQuery();
+    }
+
+    // update
+    public void AtualizarFuncionario(Funcionario funcionario)
+    {
+        // faço uma cópia da referencia do funcionario
+        FuncionarioService funcionarioService = new FuncionarioService();
+        Funcionario novo_funcionario = funcionarioService.AtualizarFuncionario(funcionario);
+
+        // deleto o funcionario antigo
+        DeletarFuncionario(funcionario.id);
+
+        // substituir pelo o novo funcionario
+        CriarFuncionario(novo_funcionario);
+
     }
 }

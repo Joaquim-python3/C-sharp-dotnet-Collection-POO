@@ -15,12 +15,6 @@ public class FuncionarioService
     /// <returns>Funcionario com informacoes atualizadas</returns>
     public Funcionario AtualizarFuncionario(Funcionario funcionario_antigo)
     {
-        /*string nome = funcionario_antigo.Nome;
-        string cargos = String.Join(" , ", funcionario_antigo.Cargos);
-        decimal salario = funcionario_antigo.Salario;
-        DateTime hora_entrada = funcionario_antigo.HoraEntrada;
-        DateTime hora_saida = funcionario_antigo.HoraSaida;
-        string regime_contratual = funcionario_antigo.RegimeContratual;*/
 
         string opcao_alterar_funcionario;
         do
@@ -33,8 +27,8 @@ public class FuncionarioService
             Console.WriteLine("5 - Hora Saida");
             Console.WriteLine("6 - Regime Contratual");
             Console.WriteLine("0 - Finalizar");
-            opcao_alterar_funcionario = (Console.ReadLine();
-            
+
+            opcao_alterar_funcionario = Console.ReadLine();
             switch (opcao_alterar_funcionario)
             {
                 case "1":
@@ -42,16 +36,47 @@ public class FuncionarioService
                     funcionario_antigo.Nome = Console.ReadLine();
                     break;
                 case "2":
-                    Console.WriteLine("Cargos associados a:" +funcionario_antigo.Nome);
+                    Console.WriteLine("Cargos associados a:" + funcionario_antigo.Nome);
                     foreach (var cargo in funcionario_antigo.Cargos)
                     {
-                        Console.WriteLine(" + "+ cargo);
+                        Console.WriteLine(" + " + cargo);
                     }
                     Console.WriteLine("Remover ou adicionar cargo? (1 - adicionar 2 - remover)");
                     // Adicionar lógica para adicionar ou remover cargo
                     Console.WriteLine("Cargo alterado");
                     break;
                 case "3":
+                    Console.WriteLine("Digite o novo salario: ");
+                    funcionario_antigo.Salario = decimal.Parse(Console.ReadLine());
+                    break;
+
+                case "4":
+                    Console.Write("Digite a hora de entrada (HH:mm): ");
+                    string hora_entrada = Console.ReadLine();
+                    funcionario_antigo.HoraEntrada = DateTime.Parse(hora_entrada);
+                    break;
+
+                case "5":
+                    Console.Write("Digite a hora de saida (HH:mm): ");
+                    string hora_saida = Console.ReadLine();
+                    funcionario_antigo.HoraEntrada = DateTime.Parse(hora_saida);
+                    break;
+                case "6":
+                    Console.WriteLine("Digite o seu regime contratuaL: (1 - CLT\n2 - CNPJ)\n");
+                    string regime_contratual = Console.ReadLine();
+                    switch (regime_contratual)
+                    {
+                        case "1":
+                            funcionario_antigo.RegimeContratual = "CLT";
+                            break;
+
+                        case "2":
+                            funcionario_antigo.RegimeContratual = "CNPJ";
+                            break;
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Entrada inválida");
                     break;
             }
 
