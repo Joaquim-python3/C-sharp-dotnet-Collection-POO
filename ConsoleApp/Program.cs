@@ -178,16 +178,16 @@ do
             repo_estoque.ListarEstoqueGeral();
 
             break;
-        
+
         case "9":
 
             menuRelatorio.MenuRelatorioFunction(repo_venda);
 
-            break; 
+            break;
 
         case "10":
             Funcionario f = new Funcionario();
-            f.Cargos = new List<string>(); 
+            f.Cargos = new List<string>();
 
             Console.Write("Nome do funcionário: ");
             f.Nome = Console.ReadLine();

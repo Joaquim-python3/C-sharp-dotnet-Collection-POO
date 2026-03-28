@@ -12,6 +12,7 @@ public class FuncionarioRepository
         database = db;
     }
 
+    // Criar funcionarios
     public void CriarFuncionario(Funcionario f)
     {
         using var conn = database.GetConnection();
@@ -48,6 +49,7 @@ public class FuncionarioRepository
         }
     }
 
+    // Listar Funcionarios
     public void ListarFuncionarios()
     {
         List<Funcionario> funcionarios = new List<Funcionario>();
@@ -66,6 +68,7 @@ public class FuncionarioRepository
         }
     }
 
+    // Deletar Fucionario
     public void DeletarFuncionario(int id)
     {
         using var conn = database.GetConnection();
