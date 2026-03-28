@@ -266,6 +266,12 @@ do
             int id_funcionario_deletar = int.Parse(Console.ReadLine());
             repo_funcionario.DeletarFuncionario(id_funcionario_deletar);
             break;
+
+        case "13":
+            repo_funcionario.ListarFuncionarios();
+            int id_funcionario = int.Parse(Console.ReadLine());
+            repo_funcionario.AtualizarFuncionario(repo_funcionario.FuncionarioPeloId(id_funcionario));
+            break;
         case "0":
             Console.WriteLine("Finalizando!");
             break;

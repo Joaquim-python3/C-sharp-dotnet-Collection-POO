@@ -102,4 +102,35 @@ public class FuncionarioRepository
         CriarFuncionario(novo_funcionario);
 
     }
+
+    // Procurar pelo id
+    public Funcionario FuncionarioPeloId(int id)
+    {
+        using var conn = database.GetConnection();
+        conn.Open();
+
+        string sql = "SELECT * FROM funcionarios WHERE id=@id";
+
+        var cmd = new MySqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("@id", id);
+
+        var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            Funcionario funcionario = new Funcionario
+            {
+                id = Convert.ToInt32(reader["id"]),
+                Nome = reader["nome"].ToString(),
+                Salario = Convert.ToDecimal(reader["salario"]),
+                HoraEntrada = Convert.ToDateTime(reader["hora_entrada"]),
+                HoraSaida = Convert.ToDateTime(reader["hora_saida"]),
+                RegimeContratual = reader["regime_contratual"].ToString()
+            };
+
+            return funcionario;
+        }
+
+        return null;
+    }
 }
