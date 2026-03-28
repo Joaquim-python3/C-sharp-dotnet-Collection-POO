@@ -30,6 +30,7 @@ do
     Console.WriteLine("8 - Mostrar estoque");
     Console.WriteLine("9 - Relatorio vendas");
     Console.WriteLine("10 - Criar Funcionario");
+    Console.WriteLine("11 - Listar Funcionarios");
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
 
@@ -252,6 +253,10 @@ do
             f.LojaId = loja_escolhida;
             repo_funcionario.CriarFuncionario(f);
 
+            break;
+
+        case "11":
+            repo_funcionario.ListarFuncionarios();
             break;
 
         case "0":

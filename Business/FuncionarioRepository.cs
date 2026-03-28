@@ -47,4 +47,22 @@ public class FuncionarioRepository
             cmdCargo.ExecuteNonQuery();
         }
     }
+
+    public void ListarFuncionarios()
+    {
+        List<Funcionario> funcionarios = new List<Funcionario>();
+
+        using var conn = database.GetConnection();
+        conn.Open();
+
+        string sql = "SELECT * FROM funcionarios";
+
+        var cmd = new MySqlCommand(sql, conn);
+        var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            Console.WriteLine(@$"{reader["id"]} - {reader["nome"]} - {reader["salario"]} - ENTRADA: {reader["hora_entrada"]} - SAIDA: {reader["hora_saida"]} - TIPO DE CONTRATO: {reader["regime_contratual"]}");
+        }
+    }
 }
