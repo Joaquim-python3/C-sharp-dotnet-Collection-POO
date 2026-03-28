@@ -31,6 +31,7 @@ do
     Console.WriteLine("9 - Relatorio vendas");
     Console.WriteLine("10 - Criar Funcionario");
     Console.WriteLine("11 - Listar Funcionarios");
+    Console.WriteLine("12 - Deletar Funcionarios");
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
 
@@ -257,6 +258,13 @@ do
 
         case "11":
             repo_funcionario.ListarFuncionarios();
+            break;
+
+        case "12":
+            repo_funcionario.ListarFuncionarios();
+            Console.WriteLine("Digite o id qual funcionario deseja apagar?");
+            int id_funcionario_deletar = int.Parse(Console.ReadLine());
+            repo_funcionario.DeletarFuncionario(id_funcionario_deletar);
             break;
 
         case "0":

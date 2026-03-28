@@ -65,4 +65,22 @@ public class FuncionarioRepository
             Console.WriteLine(@$"{reader["id"]} - {reader["nome"]} - {reader["salario"]} - ENTRADA: {reader["hora_entrada"]} - SAIDA: {reader["hora_saida"]} - TIPO DE CONTRATO: {reader["regime_contratual"]}");
         }
     }
+
+    public void DeletarFuncionario(int id)
+    {
+        using var conn = database.GetConnection();
+        conn.Open();
+
+        // deleta o cargo primeiro
+        string sqlCargos = "DELETE FROM cargos WHERE funcionario_id = @id";
+        var cmdCargos = new MySqlCommand(sqlCargos, conn);
+        cmdCargos.Parameters.AddWithValue("@id", id);
+        cmdCargos.ExecuteNonQuery();
+
+        // deleta o funcionario
+        string sql = "DELETE FROM funcionarios WHERE id=@id";
+        var cmd = new MySqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("@id", id);
+        cmd.ExecuteNonQuery();
+    }
 }
