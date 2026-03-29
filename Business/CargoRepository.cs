@@ -26,7 +26,7 @@ namespace Business
             using var conn = database.GetConnection();
             conn.Open();
 
-            string sql = "INSERTO INTO cargos (nome, funcionario_id) VALUES (@cargo, @funcionario_id)";
+            string sql = "INSERT INTO cargos (nome, funcionario_id) VALUES (@cargo, @funcionario_id)";
 
             var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@cargo", cargo);

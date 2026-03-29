@@ -303,6 +303,7 @@ do
             Console.WriteLine("Digite o cargo: ");
             string novo_cargo = Console.ReadLine();
 
+            // logica para permitir o cadastro
             if (!Enum.TryParse<Cargo>(novo_cargo, true, out Cargo cargoEnum))
             {
                 Console.WriteLine("Nao pode ser cadastrado");
