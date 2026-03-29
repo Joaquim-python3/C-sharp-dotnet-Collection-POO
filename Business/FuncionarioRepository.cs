@@ -1,4 +1,4 @@
-namespace Business;
+namespace Business.Services;
 
 using MySql.Data.MySqlClient;
 using Domain;
@@ -133,4 +133,5 @@ public class FuncionarioRepository
 
         return null;
     }
+
 }

@@ -1,4 +1,5 @@
 ﻿using Business;
+using Business.Services;
 using ConsoleApp;
 using Domain;
 using MySqlX.XDevAPI;
@@ -14,6 +15,7 @@ ClienteRepository repo_cliente = new ClienteRepository(db);
 EstoqueRepository repo_estoque = new EstoqueRepository(db);
 FuncionarioRepository repo_funcionario = new FuncionarioRepository(db);
 VendaRepository repo_venda = new VendaRepository(db);
+CargoRepository repo_cargo = new CargoRepository(db);
 MenuRelatorio menuRelatorio = new MenuRelatorio();
 
 string opcao;
@@ -32,6 +34,12 @@ do
     Console.WriteLine("10 - Criar Funcionario");
     Console.WriteLine("11 - Listar Funcionarios");
     Console.WriteLine("12 - Deletar Funcionarios");
+    Console.WriteLine("13 - Atualizar Funcionarios");
+    Console.WriteLine("14 - Listar Cargos");
+    Console.WriteLine("15 - Procurar cargo pelo Funcionario");
+    Console.WriteLine("16 - Criar cargo");
+    Console.WriteLine("17 - Deletar cargo");
+
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
 
@@ -271,6 +279,52 @@ do
             repo_funcionario.ListarFuncionarios();
             int id_funcionario = int.Parse(Console.ReadLine());
             repo_funcionario.AtualizarFuncionario(repo_funcionario.FuncionarioPeloId(id_funcionario));
+            break;
+
+        case "14":
+            Console.WriteLine("-=-=- TABELA DE CARGOS -=-=-");
+            repo_cargo.ListarCargos();
+            break;
+        case "15":
+            repo_funcionario.ListarFuncionarios();
+            Console.WriteLine("Digite um id para ver os cargos: ");
+            int id_funcionario_pesquisar_cargo = int.Parse(Console.ReadLine());
+            List<string> cargos_do_funcionario = repo_cargo.ProcurarCargosPeloIdFuncionario(id_funcionario_pesquisar_cargo);
+            Console.WriteLine("Cargos do funcionário ");
+
+            foreach (var cargo_do_funciorio in cargos_do_funcionario)
+            {
+                Console.WriteLine(cargo_do_funciorio);
+            }
+
+            break;
+
+        case "16":
+            Console.WriteLine("-=-=- CRIANDO E ASSOCIANDO CARGO -=-=-");
+            Console.WriteLine("Digite o cargo: ");
+            string novo_cargo = Console.ReadLine();
+
+            // logica para permitir o cadastro
+            if (!Enum.TryParse<Cargo>(novo_cargo, true, out Cargo cargoEnum))
+            {
+                Console.WriteLine("Nao pode ser cadastrado");
+                return;
+            }
+
+            repo_funcionario.ListarFuncionarios();
+            Console.WriteLine("Digite o id do funcionario: ");
+            int id_funcionario_novo_cargo = int.Parse(Console.ReadLine());
+            repo_cargo.CriarCargo(novo_cargo, id_funcionario_novo_cargo);
+
+
+            break;
+
+        case "17":
+            Console.WriteLine("-=-=- DELETANDO CARGOS ASSOCIADOS -=-=-");
+            repo_cargo.ListarCargos();
+            Console.WriteLine("Digite o id para desassociar o cargo: ");
+            int id_cargo_deletar = int.Parse(Console.ReadLine());
+            repo_cargo.DeletarCargo(id_cargo_deletar);
             break;
         case "0":
             Console.WriteLine("Finalizando!");
