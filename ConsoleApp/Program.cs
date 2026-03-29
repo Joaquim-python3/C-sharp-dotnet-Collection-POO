@@ -38,6 +38,7 @@ do
     Console.WriteLine("14 - Listar Cargos");
     Console.WriteLine("15 - Procurar cargo pelo Funcionario");
     Console.WriteLine("16 - Criar cargo");
+    Console.WriteLine("17 - Deletar cargo");
 
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
@@ -316,6 +317,14 @@ do
             repo_cargo.CriarCargo(novo_cargo, id_funcionario_novo_cargo);
 
 
+            break;
+
+        case "17":
+            Console.WriteLine("-=-=- DELETANDO CARGOS ASSOCIADOS -=-=-");
+            repo_cargo.ListarCargos();
+            Console.WriteLine("Digite o id para desassociar o cargo: ");
+            int id_cargo_deletar = int.Parse(Console.ReadLine());
+            repo_cargo.DeletarCargo(id_cargo_deletar);
             break;
         case "0":
             Console.WriteLine("Finalizando!");

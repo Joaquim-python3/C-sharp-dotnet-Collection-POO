@@ -83,5 +83,17 @@ namespace Business
 
             return cargos;
         }
+        public void DeletarCargo(int id)
+        {
+            using var conn = database.GetConnection();
+            conn.Open();
+
+            string sql = "DELETE FROM cargos WHERE id=@id";
+            var cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+            Console.WriteLine("Cargo deletado");
+        }
     }
 }
