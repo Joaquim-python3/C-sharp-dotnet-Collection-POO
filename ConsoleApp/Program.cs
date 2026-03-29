@@ -32,6 +32,8 @@ do
     Console.WriteLine("10 - Criar Funcionario");
     Console.WriteLine("11 - Listar Funcionarios");
     Console.WriteLine("12 - Deletar Funcionarios");
+    Console.WriteLine("13 - Atualizar Funcionarios");
+
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
 
