@@ -15,6 +15,7 @@ ClienteRepository repo_cliente = new ClienteRepository(db);
 EstoqueRepository repo_estoque = new EstoqueRepository(db);
 FuncionarioRepository repo_funcionario = new FuncionarioRepository(db);
 VendaRepository repo_venda = new VendaRepository(db);
+CargoRepository repo_cargo = new CargoRepository(db);
 MenuRelatorio menuRelatorio = new MenuRelatorio();
 
 string opcao;
@@ -34,7 +35,7 @@ do
     Console.WriteLine("11 - Listar Funcionarios");
     Console.WriteLine("12 - Deletar Funcionarios");
     Console.WriteLine("13 - Atualizar Funcionarios");
-    Console.WriteLine("14 - Cargo");
+    Console.WriteLine("14 - Listar Cargos");
 
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
@@ -278,9 +279,7 @@ do
             break;
 
         case "14":
-            Funcionario func = new Funcionario();
-            FuncionarioService service = new FuncionarioService();
-            service.AssociarFucionarioComCargos(func);
+            repo_cargo.ListarCargos();
             break;
         case "0":
             Console.WriteLine("Finalizando!");

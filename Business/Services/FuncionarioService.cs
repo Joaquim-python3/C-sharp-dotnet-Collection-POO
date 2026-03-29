@@ -90,9 +90,6 @@ public class FuncionarioService
 
     public void AssociarFucionarioComCargos(Funcionario funcionario)
     {
-        CargoRepository repo_cargo = new CargoRepository();
-        repo_cargo.ProcurarCargosPeloIdFuncionario(funcionario.id);
-        
-        Console.WriteLine("teste");
+
     }
 }

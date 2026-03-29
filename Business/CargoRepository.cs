@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Business.Services;
+using Domain;
 using MySql.Data.MySqlClient;
 
 namespace Business
@@ -39,13 +41,19 @@ namespace Business
             using var conn = database.GetConnection();
             conn.Open();
 
-            string sql = "SELECT * FROM cargos";
+            // refatoracao
+            string sql = @"
+                SELECT c.id, c.nome, f.nome AS funcionario_nome
+                FROM cargos c
+                JOIN funcionarios f ON f.id = c.funcionario_id
+                ";
+
             var cmd = new MySqlCommand(sql, conn);
             var reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                Console.WriteLine($"{reader["id"]} - {reader["nome"]} - {reader["funcionario_id"]}");
+                Console.WriteLine($"{reader["id"]} - {reader["nome"]} - {reader["funcionario_nome"]}");
             }
         }
 
