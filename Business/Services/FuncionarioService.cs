@@ -1,12 +1,15 @@
+namespace Business.Services;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Domain.Services;
-
 public class FuncionarioService
 {
+    public FuncionarioService()
+    {
+    }
     /// <summary>
     /// Função para atualizar o funcionário sem precisar instanciar outro objeto funcionário
     /// Recebe input do usuário para atualizar as informacoes
@@ -59,7 +62,7 @@ public class FuncionarioService
                 case "5":
                     Console.Write("Digite a hora de saida (HH:mm): ");
                     string hora_saida = Console.ReadLine();
-                    funcionario_antigo.HoraEntrada = DateTime.Parse(hora_saida);
+                    funcionario_antigo.HoraSaida = DateTime.Parse(hora_saida);
                     break;
                 case "6":
                     Console.WriteLine("Digite o seu regime contratuaL: (1 - CLT\n2 - CNPJ)\n");
@@ -83,5 +86,13 @@ public class FuncionarioService
         } while (opcao_alterar_funcionario != "0");
 
         return funcionario_antigo;
+    }
+
+    public void AssociarFucionarioComCargos(Funcionario funcionario)
+    {
+        CargoRepository repo_cargo = new CargoRepository();
+        repo_cargo.ProcurarCargosPeloIdFuncionario(funcionario.id);
+        
+        Console.WriteLine("teste");
     }
 }

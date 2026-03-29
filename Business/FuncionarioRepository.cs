@@ -1,4 +1,4 @@
-namespace Business;
+namespace Business.Services;
 
 using MySql.Data.MySqlClient;
 using Domain;

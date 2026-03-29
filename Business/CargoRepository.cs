@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace Business
 {
@@ -35,7 +36,7 @@ namespace Business
 
         public void ListarCargos()
         {
-            using var conn = database.GetConnection().
+            using var conn = database.GetConnection();
             conn.Open();
 
             string sql = "SELECT * FROM cargos";
@@ -47,7 +48,7 @@ namespace Business
                 Console.WriteLine($"{reader["id"]} - {reader["nome"]} - {reader["funcionario_id"]}");
             }
         }
-        
+
         /// <summary>
         /// Procurar cargos associado ao id passado
         /// </summary>
@@ -66,6 +67,7 @@ namespace Business
 
             var reader = cmd.ExecuteReader();
 
+            // já que um funcionario pode ter mais de um cargo associado
             while (reader.Read())
             {
                 cargos.Add(reader["nome"].ToString());

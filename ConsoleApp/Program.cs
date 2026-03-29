@@ -1,4 +1,5 @@
 ﻿using Business;
+using Business.Services;
 using ConsoleApp;
 using Domain;
 using MySqlX.XDevAPI;
@@ -33,6 +34,7 @@ do
     Console.WriteLine("11 - Listar Funcionarios");
     Console.WriteLine("12 - Deletar Funcionarios");
     Console.WriteLine("13 - Atualizar Funcionarios");
+    Console.WriteLine("14 - Cargo");
 
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
@@ -273,6 +275,12 @@ do
             repo_funcionario.ListarFuncionarios();
             int id_funcionario = int.Parse(Console.ReadLine());
             repo_funcionario.AtualizarFuncionario(repo_funcionario.FuncionarioPeloId(id_funcionario));
+            break;
+
+        case "14":
+            Funcionario func = new Funcionario();
+            FuncionarioService service = new FuncionarioService();
+            service.AssociarFucionarioComCargos(func);
             break;
         case "0":
             Console.WriteLine("Finalizando!");
