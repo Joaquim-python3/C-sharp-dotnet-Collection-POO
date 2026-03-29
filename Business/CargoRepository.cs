@@ -47,5 +47,31 @@ namespace Business
                 Console.WriteLine($"{reader["id"]} - {reader["nome"]} - {reader["funcionario_id"]}");
             }
         }
+        
+        /// <summary>
+        /// Procurar cargos associado ao id passado
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List<Cargos></returns>
+        public List<String> ProcurarCargosPeloIdFuncionario(int id)
+        {
+            var cargos = new List<string>();
+
+            using var conn = database.GetConnection();
+            conn.Open();
+
+            string sql = "SELECT nome FROM cargos WHERE funcionario_id=@id";
+            var cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                cargos.Add(reader["nome"].ToString());
+            }
+
+            return cargos;
+        }
     }
 }
