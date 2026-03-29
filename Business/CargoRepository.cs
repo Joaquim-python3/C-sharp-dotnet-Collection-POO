@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,5 +33,19 @@ namespace Business
             Console.WriteLine("Cargo criado com sucesso");
         }
 
+        public void ListarCargos()
+        {
+            using var conn = database.GetConnection().
+            conn.Open();
+
+            string sql = "SELECT * FROM cargos";
+            var cmd = new MySqlCommand(sql, conn);
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Console.WriteLine($"{reader["id"]} - {reader["nome"]} - {reader["funcionario_id"]}");
+            }
+        }
     }
 }
