@@ -41,7 +41,7 @@ namespace Business
             using var conn = database.GetConnection();
             conn.Open();
 
-            // refatoracao
+            //
             string sql = @"
                 SELECT c.id, c.nome, f.nome AS funcionario_nome
                 FROM cargos c

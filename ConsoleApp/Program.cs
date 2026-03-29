@@ -37,6 +37,7 @@ do
     Console.WriteLine("13 - Atualizar Funcionarios");
     Console.WriteLine("14 - Listar Cargos");
     Console.WriteLine("15 - Procurar cargo pelo Funcionario");
+    Console.WriteLine("16 - Criar cargo");
 
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
@@ -288,10 +289,31 @@ do
             Console.WriteLine("Digite um id para ver os cargos: ");
             int id_funcionario_pesquisar_cargo = int.Parse(Console.ReadLine());
             List<string> cargos_do_funcionario = repo_cargo.ProcurarCargosPeloIdFuncionario(id_funcionario_pesquisar_cargo);
+            Console.WriteLine("Cargos do funcionário ");
+
             foreach (var cargo_do_funciorio in cargos_do_funcionario)
             {
                 Console.WriteLine(cargo_do_funciorio);
             }
+
+            break;
+
+        case "16":
+            Console.WriteLine("-=-=- CRIANDO E ASSOCIANDO CARGO -=-=-");
+            Console.WriteLine("Digite o cargo: ");
+            string novo_cargo = Console.ReadLine();
+
+            if (!Enum.TryParse<Cargo>(novo_cargo, true, out Cargo cargoEnum))
+            {
+                Console.WriteLine("Nao pode ser cadastrado");
+                return;
+            }
+
+            repo_funcionario.ListarFuncionarios();
+            Console.WriteLine("Digite o id do funcionario: ");
+            int id_funcionario_novo_cargo = int.Parse(Console.ReadLine());
+            repo_cargo.CriarCargo(novo_cargo, id_funcionario_novo_cargo);
+
 
             break;
         case "0":
