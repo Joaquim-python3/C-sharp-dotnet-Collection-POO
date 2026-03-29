@@ -30,6 +30,8 @@ do
     Console.WriteLine("8 - Mostrar estoque");
     Console.WriteLine("9 - Relatorio vendas");
     Console.WriteLine("10 - Criar Funcionario");
+    Console.WriteLine("11 - Listar Funcionarios");
+    Console.WriteLine("12 - Deletar Funcionarios");
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
 
@@ -176,16 +178,16 @@ do
             repo_estoque.ListarEstoqueGeral();
 
             break;
-        
+
         case "9":
 
             menuRelatorio.MenuRelatorioFunction(repo_venda);
 
-            break; 
+            break;
 
         case "10":
             Funcionario f = new Funcionario();
-            f.Cargos = new List<string>(); 
+            f.Cargos = new List<string>();
 
             Console.Write("Nome do funcionário: ");
             f.Nome = Console.ReadLine();
@@ -254,6 +256,22 @@ do
 
             break;
 
+        case "11":
+            repo_funcionario.ListarFuncionarios();
+            break;
+
+        case "12":
+            repo_funcionario.ListarFuncionarios();
+            Console.WriteLine("Digite o id qual funcionario deseja apagar?");
+            int id_funcionario_deletar = int.Parse(Console.ReadLine());
+            repo_funcionario.DeletarFuncionario(id_funcionario_deletar);
+            break;
+
+        case "13":
+            repo_funcionario.ListarFuncionarios();
+            int id_funcionario = int.Parse(Console.ReadLine());
+            repo_funcionario.AtualizarFuncionario(repo_funcionario.FuncionarioPeloId(id_funcionario));
+            break;
         case "0":
             Console.WriteLine("Finalizando!");
             break;
