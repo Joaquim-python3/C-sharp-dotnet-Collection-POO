@@ -90,6 +90,6 @@ public class FuncionarioService
 
     public void AssociarFucionarioComCargos(Funcionario funcionario)
     {
-
+        CargoRepository repo_cargo = new CargoRepository(new Database());
     }
 }

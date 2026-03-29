@@ -36,6 +36,7 @@ do
     Console.WriteLine("12 - Deletar Funcionarios");
     Console.WriteLine("13 - Atualizar Funcionarios");
     Console.WriteLine("14 - Listar Cargos");
+    Console.WriteLine("15 - Procurar cargo pelo Funcionario");
 
     Console.WriteLine("0 - Sair");
     Console.WriteLine("\n");
@@ -279,7 +280,19 @@ do
             break;
 
         case "14":
+            Console.WriteLine("-=-=- TABELA DE CARGOS -=-=-");
             repo_cargo.ListarCargos();
+            break;
+        case "15":
+            repo_funcionario.ListarFuncionarios();
+            Console.WriteLine("Digite um id para ver os cargos: ");
+            int id_funcionario_pesquisar_cargo = int.Parse(Console.ReadLine());
+            List<string> cargos_do_funcionario = repo_cargo.ProcurarCargosPeloIdFuncionario(id_funcionario_pesquisar_cargo);
+            foreach (var cargo_do_funciorio in cargos_do_funcionario)
+            {
+                Console.WriteLine(cargo_do_funciorio);
+            }
+
             break;
         case "0":
             Console.WriteLine("Finalizando!");
