@@ -53,19 +53,63 @@ public class FuncionarioRepository
     // Listar Funcionarios
     public void ListarFuncionarios()
     {
-        List<Funcionario> funcionarios = new List<Funcionario>();
+        var funcionarios = new Dictionary<int, (string info, List<string> cargos)>();
 
         using var conn = database.GetConnection();
         conn.Open();
 
-        string sql = "SELECT * FROM funcionarios";
+        string sql = @"
+                    SELECT 
+                        f.id,
+                        f.nome,
+                        f.salario,
+                        f.hora_entrada,
+                        f.hora_saida,
+                        f.regime_contratual,
+                        c.nome AS cargo_nome
+                    FROM funcionarios f
+                    LEFT JOIN cargos c ON c.funcionario_id = f.id
+                    ORDER BY f.id;
+                ";
 
         var cmd = new MySqlCommand(sql, conn);
         var reader = cmd.ExecuteReader();
 
         while (reader.Read())
         {
-            Console.WriteLine(@$"{reader["id"]} - {reader["nome"]} - {reader["salario"]} - ENTRADA: {reader["hora_entrada"]} - SAIDA: {reader["hora_saida"]} - TIPO DE CONTRATO: {reader["regime_contratual"]}");
+            int id = Convert.ToInt32(reader["id"]);
+
+            if (!funcionarios.ContainsKey(id))
+            {
+                string info = $"{id} - {reader["nome"]} - {reader["salario"]} - ENTRADA: {reader["hora_entrada"]} - SAIDA: {reader["hora_saida"]} - TIPO: {reader["regime_contratual"]}";
+
+                funcionarios[id] = (info, new List<string>());
+            }
+
+            if (reader["cargo_nome"] != DBNull.Value)
+            {
+                funcionarios[id].cargos.Add(reader["cargo_nome"].ToString());
+            }
+        }
+
+        foreach (var f in funcionarios.Values)
+        {
+            Console.WriteLine("\n" + f.info);
+
+            Console.Write("Cargos: ");
+            if (f.cargos.Count > 0)
+            {
+                foreach (var cargo in f.cargos)
+                {
+                    Console.Write(cargo + " ");
+                }
+            }
+            else
+            {
+                Console.Write("Nenhum");
+            }
+
+            Console.WriteLine();
         }
     }
 
