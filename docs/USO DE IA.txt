@@ -3,4 +3,8 @@ USO DE IA
 Como funciona a organização de pastas para um projeto de CRUD em C# (Explique o uso de Domain e Business) - GEMINI
 Como fazer a conexão do C# com o MySQL - GEMINI
 Como fazer comandos básicos de insert, delete, update e select em C# - ChatGPT
+Crie um banco de dados MySQL para a estrutura a de organização para as classes (aqui inicia o processo de explicação para IA) - ChatGPT
 
+Considerações gerais: Deve ser utilizada com um objetivo claro. Ao utilizar para responder duvidas do nosso projeto ela serviu bem, resumindo informações esparsas pela web. Sentimos
+o mesmo com a criação de códigos SQL para o banco de dados, os comandos normalmente funcionam sem problemas. Porém a estruturação do banco de dados não é muito bem atendida se os
+requisitos não forem explicitados recorrentemente para a IA. Tivemos que refatorar o banco de dados diversas vezes para ajustar com os nossos novos objetivos no decorrer do projeto.
